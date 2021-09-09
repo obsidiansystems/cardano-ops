@@ -14,7 +14,7 @@ pkgs: with pkgs.iohkNix.cardanoLib; with pkgs.globals; {
   };
   explorerBackendsInContainers = true;
 
-  environmentConfigLocal = rec {
+  environmentConfig = rec {
     relaysNew = "relays.${domain}";
     nodeConfig =
       pkgs.lib.recursiveUpdate
