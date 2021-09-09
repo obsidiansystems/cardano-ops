@@ -121,9 +121,21 @@ for i in `seq 1 $NB_POOL_NODES`; do
     --out-file stake-delegator-keys/staking$i.addr \
     --testnet-magic $NETWORK_MAGIC
 
-  METADATA="../static/pool-metadata/p/$i.json"
-  METADATA_URL="https://monitoring.$DOMAIN/p/$i.json"
-  TICKER=$(jq -r '.ticker' < $METADATA)
+
+  METADATA_FILE=pool-metadata.json
+  echo '{
+    "name": "PriviPool",
+    "description": "Priviledge Pool",
+    "ticker": "TEST",
+    "homepage": "https://ppp"
+  }' > $METADATA_FILE
+  # Get the hash of the file:
+  METADATA_HASH=`cardano-cli stake-pool metadata-hash --pool-metadata-file pool-metadata.json`
+  METADATA_URL="file://$METADATA_FILE"
+
+  # METADATA="../static/pool-metadata/p/$i.json"
+  # METADATA_URL="https://monitoring.$DOMAIN/p/$i.json"
+  TICKER=$(jq -r '.ticker' < $METADATA_FILE)
   RELAY="$(echo "$TICKER" | tr '[:upper:]' '[:lower:]').$RELAYS"
 
   # stake pool registration cert
@@ -139,7 +151,7 @@ for i in `seq 1 $NB_POOL_NODES`; do
     --single-host-pool-relay $RELAY \
     --pool-relay-port 3001 \
     --metadata-url $METADATA_URL \
-    --metadata-hash $(cardano-cli stake-pool metadata-hash --pool-metadata-file $METADATA)
+    --metadata-hash $METADATA_HASH #$(cardano-cli stake-pool metadata-hash --pool-metadata-file $METADATA_FILE)
 done
 
 for i in `seq 1 $UTXO_KEYS`; do
@@ -244,17 +256,24 @@ fi
 
 mkdir -p node-keys
 cd node-keys
+
 # Link VRF keys for the BFT nodes.
 for i in `seq 1 $NB_BFT_NODES`; do
   ln -sf ../delegate-keys/delegate$i.vrf.skey node-vrf$i.skey
+  ln -sf ../delegate-keys/delegate$i.vrf.vkey node-vrf$i.vkey
   ln -sf ../delegate-keys/delegate$i.kes.skey node-kes$i.skey
+  ln -sf ../delegate-keys/delegate$i.kes.vkey node-kes$i.vkey
   ln -sf ../delegate-keys/opcert$i.cert node$i.opcert
 done
 # Link VRF keys for the staking pool nodes.
 for p in `seq 1 $NB_POOL_NODES`; do
   i=$(($NB_BFT_NODES+p))
   ln -sf ../pools/vrf$p.skey node-vrf$i.skey
+  ln -sf ../pools/vrf$p.vkey node-vrf$i.vkey
   ln -sf ../pools/kes$p.skey node-kes$i.skey
+  ln -sf ../pools/kes$p.vkey node-kes$i.vkey
+  ln -sf ../pools/cold$p.skey node-cold$i.skey
+  ln -sf ../pools/cold$p.vkey node-cold$i.vkey
   ln -sf ../pools/opcert$p.cert node$i.opcert
 done
 # TODO fix script:
