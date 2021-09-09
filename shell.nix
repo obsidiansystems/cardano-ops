@@ -23,7 +23,7 @@ in  mkShell (rec {
     cardano-cli
     dnsutils
     niv
-    locli
+    # locli
     nivOverrides
     nix
     nix-diff
