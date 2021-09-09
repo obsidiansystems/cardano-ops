@@ -1,7 +1,8 @@
 pkgs: with pkgs.iohkNix.cardanoLib; with pkgs.globals; {
 
   # This should match the name of the topology file.
-  deploymentName = "alonzo-purple";
+  deploymentName = "alonzo-os";
+  environmentName = "alonzo-os";
 
   withFaucet = false;
   withSmash = false;
