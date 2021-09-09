@@ -3,14 +3,14 @@ pkgs: with pkgs.iohkNix.cardanoLib; with pkgs.globals; {
   # This should match the name of the topology file.
   deploymentName = "alonzo-purple";
 
-  withFaucet = true;
-  withSmash = true;
-  explorerBackends = {
-    a = explorer11;
-  };
-  explorerBackendsInContainers = true;
+  withFaucet = false;
+  withSmash = false;
+  # explorerBackends = {
+  #   a = explorer11;
+  # };
+  explorerBackendsInContainers = false;
 
-  environmentConfigLocal = rec {
+  environmentConfig = rec {
     relaysNew = "relays.${domain}";
     nodeConfig =
       pkgs.lib.recursiveUpdate
