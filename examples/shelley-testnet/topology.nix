@@ -110,11 +110,11 @@ let
                 destDir = "/root/keys";
               };
               "cold.vkey" = {
-                keyFile = ../keys/pool-keys + "/node${toString x.nodeId}-cold.vkey";
+                keyFile = ../keys/node-keys + "/node-cold${toString x.nodeId}.vkey";
                 destDir = "/root/keys";
               };
               "cold.skey" = {
-                keyFile = ../keys/pool-keys + "/node${toString x.nodeId}-cold.skey";
+                keyFile = ../keys/node-keys + "/node-cold${toString x.nodeId}.skey";
                 destDir = "/root/keys";
               };
               "node-vrf.vkey" = {
