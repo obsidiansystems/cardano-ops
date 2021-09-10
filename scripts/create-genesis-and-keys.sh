@@ -26,7 +26,7 @@ cd "$(dirname "$0")/.."
 [ -z ${NETWORK_MAGIC+x} ]&& ( echo "Environment variable NETWORK_MAGIC must be defined"; exit 1)
 
 export NB_CORE_NODES=$(($NB_BFT_NODES + $NB_POOL_NODES))
-DELAY="${DELAY:-30}"
+DELAY="${DELAY:-5}"
 UTXO_KEYS="${UTXO_KEYS:-3}"
 DPARAM=$(awk "BEGIN{print 1.0 - 1.0 * $NB_POOL_NODES / $NB_CORE_NODES}")
 
