@@ -27,6 +27,10 @@ pkgs: with pkgs.iohkNix.cardanoLib; with pkgs.globals; {
         ByronGenesisHash = builtins.replaceStrings ["\n"] [""] (builtins.readFile ./keys/byron/GENHASH);
         AlonzoGenesisFile = ./keys/genesis.alonzo.json;
         AlonzoGenesisHash = builtins.replaceStrings ["\n"] [""] (builtins.readFile ./keys/ALONZOGENHASH);
+        TestShelleyHardForkAtEpoch = 0;
+        TestAllegraHardForkAtEpoch = 0;
+        TestMaryHardForkAtEpoch = 0;
+        TestAlonzoHardForkAtEpoch = 0;
         MaxKnownMajorProtocolVersion = 5;
         LastKnownBlockVersion-Major = 5;
       };
