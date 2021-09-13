@@ -6,6 +6,8 @@ cd "$(dirname "$0")/.."
 mkdir -p keys
 mkdir -p keys/byron
 
+ln -sf globals-alonzo-os.nix globals.nix
+
 (
 cd keys
 ln -sf ../os/genesis/genesis.json .
