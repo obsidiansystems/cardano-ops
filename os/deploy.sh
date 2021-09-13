@@ -10,12 +10,12 @@ ln -sf globals-alonzo-os.nix globals.nix
 
 (
 cd keys
-ln -sf ../os/genesis/genesis.json .
-ln -sf ../os/genesis/genesis.alonzo.json .
+cp -vf ../os/genesis/genesis.json .
+cp -vf ../os/genesis/genesis.alonzo.json .
 )
 (
 cd keys/byron
-ln -sf ../../os/genesis/byron/genesis.json .
+cp -vf ../../os/genesis/byron/genesis.json .
 )
 
 nix-shell --run "./scripts/create-genesis-and-keys.sh"
