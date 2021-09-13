@@ -18,5 +18,5 @@ cd keys/byron
 ln -sf ../../os/genesis/byron/genesis.json .
 )
 
-./scripts/create-genesis-and-keys.sh
-./scripts/create-libvirtd.sh
+nix-shell --run "./scripts/create-genesis-and-keys.sh"
+nix-shell --run "./scripts/create-libvirtd.sh"
